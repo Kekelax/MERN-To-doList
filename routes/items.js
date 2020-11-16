@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+// authentication middlware
+const auth = require("../middleware/auth");
+
 // Item Model
 const Item = require("../models/item");
 
@@ -10,9 +13,11 @@ const Item = require("../models/item");
  * @access  Public
  */
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
+  const email = req.user.email;
+
   try {
-    const items = await Item.find().sort({ date: -1 });
+    const items = await Item.find({ user: email }).sort({ date: -1 });
     if (!items) throw Error("No items");
 
     res.status(200).json(items);
@@ -24,10 +29,10 @@ router.get("/", async (req, res) => {
 /**
  * @route   POST /items
  * @desc    Create an item
- * @access  Public
+ * @access  Private
  */
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const newItem = new Item({
     name: req.body.name,
     user: req.body.user,
@@ -46,10 +51,10 @@ router.post("/", async (req, res) => {
 /**
  * @route   DELETE /items/:id
  * @desc    Delete an item
- * @access  Public
+ * @access  Private
  */
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
 

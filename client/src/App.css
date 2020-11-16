@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.spanText {
+  letter-spacing: 2px;
+  font-weight: lighter;
+  margin-right: 3rem;
+}
+
+.deleteButton:hover Button {
+  background-color: "#ffd74d";
+  color: "#fff";
+
+  border: "1px solid #ffd74d";
+}

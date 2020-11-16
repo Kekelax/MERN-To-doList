@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-// import { v4 as uuid } from "uuid";
+import PropTypes from "prop-types";
 
 //actions
 import { addItem } from "../actions/itemactions";
@@ -19,6 +19,11 @@ class AddItem extends React.Component {
   state = {
     modal: false,
     name: "",
+  };
+
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool,
   };
 
   toggle = () => {
@@ -36,7 +41,7 @@ class AddItem extends React.Component {
 
     const newItem = {
       name: this.state.name,
-      user: "dappi@gmail.com",
+      user: this.props.auth.user.email,
     };
 
     //add using addItem action
@@ -50,16 +55,34 @@ class AddItem extends React.Component {
   render() {
     return (
       <div>
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={this.toggle}
-        >
-          Add Item
-        </Button>
+        {this.props.isAuthenticated ? (
+          <Button
+            color="dark"
+            className="deleteButton"
+            style={{
+              marginBottom: "2rem",
+              letterSpacing: "2px",
+              backgroundColor: "#ff7e4d",
+              border: "0.5px solid #ff7e4d",
+            }}
+            onClick={this.toggle}
+          >
+            Add List Item
+          </Button>
+        ) : (
+          <h4 className="mb-3 ml-3">Register or log in to manage items</h4>
+        )}
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add to List</ModalHeader>
+          <ModalHeader
+            toggle={this.toggle}
+            style={{
+              letterSpacing: "2px",
+              outline: "none",
+            }}
+          >
+            Add to List
+          </ModalHeader>
           <ModalBody>
             <Form
               onSubmit={this.onSubmit}
@@ -69,15 +92,31 @@ class AddItem extends React.Component {
               }}
             >
               <FormGroup>
-                <Label for="item">Item</Label>
+                <Label
+                  for="item"
+                  style={{
+                    letterSpacing: "2px",
+                    outline: "none",
+                  }}
+                >
+                  Item
+                </Label>
                 <Input
                   type="text"
                   name="name"
                   id="item"
                   placeholder="Add Item ..."
                   onChange={this.onChange}
+                  style={{
+                    letterSpacing: "2px",
+                    outline: "none",
+                  }}
                 />
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
+                <Button
+                  color="dark"
+                  style={{ marginTop: "2rem", letterSpacing: "2px" }}
+                  block
+                >
                   Add Item
                 </Button>
               </FormGroup>
@@ -91,6 +130,8 @@ class AddItem extends React.Component {
 
 const mapStateToProps = (state) => ({
   item: state.item,
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { addItem })(AddItem);
