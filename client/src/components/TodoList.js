@@ -28,24 +28,24 @@ class TodoList extends React.Component {
     const { items } = this.props.item;
     const { isAuthenticated } = this.props.auth;
     const item = items.map(({ _id, name }) => (
-      //<CSSTransition key={_id} timeout={500} classNames="fade">
-      <ListGroupItem>
-        <Button
-          className="remove-btn deleteButton"
-          size="sm"
-          style={{
-            backgroundColor: "#ff7e4d",
-            color: "#fff",
-            marginRight: "1rem",
-            border: "1px solid #ff7e4d",
-          }}
-          onClick={this.onDeleteClick.bind(this, _id)}
-        >
-          &times;
-        </Button>
-        {name}
-      </ListGroupItem>
-      // </CSSTransition>
+      <CSSTransition key={_id} timeout={500} classNames="fade">
+        <ListGroupItem>
+          <Button
+            className="remove-btn deleteButton"
+            size="sm"
+            style={{
+              backgroundColor: "#ff7e4d",
+              color: "#fff",
+              marginRight: "1rem",
+              border: "1px solid #ff7e4d",
+            }}
+            onClick={this.onDeleteClick.bind(this, _id)}
+          >
+            &times;
+          </Button>
+          {name}
+        </ListGroupItem>
+      </CSSTransition>
     ));
 
     return (
