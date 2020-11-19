@@ -53,7 +53,6 @@ class LoginModal extends React.Component {
       //if user is authenticated, close modal
       if (isAuthenticated) {
         this.toggle();
-        this.props.getItems();
       }
     }
   }
@@ -65,6 +64,7 @@ class LoginModal extends React.Component {
     this.setState({
       modal: !this.state.modal,
     });
+    this.props.getItems();
   };
 
   onChange = (e) => {

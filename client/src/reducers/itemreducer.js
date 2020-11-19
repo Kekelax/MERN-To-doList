@@ -17,7 +17,7 @@ export default function ItemReducer(state = initialState, action) {
     case GET_ITEMS:
       return {
         ...state,
-        items: action.payload,
+        ...action.payload,
         loading: false,
       };
 
@@ -30,7 +30,7 @@ export default function ItemReducer(state = initialState, action) {
     case ADD_ITEM:
       return {
         ...state,
-        items: [action.payload, ...state.items],
+        items: [action.payload.items, ...state.items],
       };
 
     case ITEMS_LOADING:

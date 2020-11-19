@@ -26,8 +26,8 @@ class App extends React.Component {
         <div className="App">
           <AppNavbar />
           <Container>
-            <TodoList />
             <AddItem />
+            <TodoList />
           </Container>
         </div>
       </Provider>

@@ -49,6 +49,7 @@ class AppNavbar extends React.Component {
             {user ? `Welcome ${user.name}` : ""}
           </span>
         </NavItem>
+
         <NavItem>
           <Logout />
         </NavItem>

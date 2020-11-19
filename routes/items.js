@@ -20,7 +20,7 @@ router.get("/", auth, async (req, res) => {
     const items = await Item.find({ user: email }).sort({ date: -1 });
     if (!items) throw Error("No items");
 
-    res.status(200).json(items);
+    res.status(200).json({ items: items });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -42,7 +42,7 @@ router.post("/", auth, async (req, res) => {
     const item = await newItem.save();
     if (!item) throw Error("Something went wrong saving the item");
 
-    res.status(200).json(item);
+    res.status(200).json({ items: item });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
