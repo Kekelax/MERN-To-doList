@@ -59,6 +59,7 @@ router.post("/login", async (req, res) => {
  * @access  Private
  */
 
+// Gets user without the password if the token is valid
 router.get("/user", auth, async (req, res) => {
   try {
     //select('-password') excludes the password

@@ -88,6 +88,7 @@ class LoginModal extends React.Component {
   render() {
     return (
       <div>
+        {/* Login link on the navbar, this opens the login modal */}
         <NavLink
           onClick={this.toggle}
           href="#"
